@@ -1,3 +1,10 @@
+# The source code seems to be here:
+#
+# https://github.com/ethereum-optimism/optimism/tree/develop/ops/docker/deployment-utils
+#
+# ref:
+# https://theorg.com/org/optimism/org-chart/matthew-slipper
+# https://github.com/mslipper
 DEPLOYMENT_UTILS_IMAGE = "mslipper/deployment-utils:latest"
 
 

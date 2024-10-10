@@ -68,6 +68,13 @@ def launch_participant_network(
         batcher_key,
     )
 
+    # TODO: this seems to work together w src/proposer/op-proposer/op_proposer_launcher.star
+    # we need to enable this. but we need to figure out how to get `l2oo_address`. likely we need to:
+    #
+    # - change some L2 configs before deploying the contracts
+    # - read the configs after deploying the contracts
+    # - get the address from the configs
+    #
     # The OP Stack don't run the proposer anymore, it has been replaced with the challenger
     # op_proposer_launcher.launch(
     #     plan,

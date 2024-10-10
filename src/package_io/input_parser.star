@@ -112,6 +112,7 @@ def parse_network_params(plan, input_args):
 
             cl_image = participant["cl_image"]
             if cl_image == "":
+                # TODO: we need to always use our own op-node image
                 default_image = DEFAULT_CL_IMAGES.get(cl_type, "")
                 if default_image == "":
                     fail(
@@ -142,6 +143,8 @@ def parse_network_params(plan, input_args):
 
 def default_optimism_args():
     return {
+        # Q: why it can have many chains? It seems it is designed to support 
+        # deploying multiple L2 networks on top of a single L1. but why?
         "chains": default_chains(),
         "op_contract_deployer_params": default_op_contract_deployer_params(),
     }
@@ -152,6 +155,8 @@ def default_chains():
         {
             "participants": [default_participant()],
             "network_params": default_network_params(),
+            # MARK: see ADDITIONAL_SERVICES_PARAMS
+            # currently only "blockscout" is supported
             "additional_services": DEFAULT_ADDITIONAL_SERVICES,
         }
     ]
@@ -159,8 +164,9 @@ def default_chains():
 
 def default_network_params():
     return {
+        # Q: what's the difference between network and name?
         "network": "kurtosis",
-        "network_id": "2151908",
+        "network_id": "2151908", # MARK: this is chain id
         "name": "op-kurtosis",
         "seconds_per_slot": 2,
         "fjord_time_offset": 0,
@@ -173,14 +179,21 @@ def default_network_params():
 def default_participant():
     return {
         "el_type": "op-geth",
+        # Q: why is el_image and cl_image empty?
         "el_image": "",
         "cl_type": "op-node",
         "cl_image": "",
         "count": 1,
+        # Q: what is this False?
         "sequencer": False,
     }
 
 
+# MARK: image is the docker image, artifacts_url is used to download the contract artifacts for deploying the OP contracts
+# Q: where is the Github repo for the op-deployer? I want to see how to use it e.g. what are the params?
+# ref:
+# - https://github.com/ethereum-optimism/optimism/blob/develop/ops/docker/op-stack-go/Dockerfile#L165
+# - https://hub.docker.com/r/mslipper/op-deployer
 def default_op_contract_deployer_params():
     return {
         "image": "mslipper/op-deployer:latest",
@@ -194,6 +207,7 @@ def default_ethereum_package_network_params():
             "preset": "minimal",
             "genesis_delay": 5,
             # Preload the Arachnid CREATE2 deployer
+            # MARK: https://github.com/Arachnid/deterministic-deployment-proxy
             "additional_preloaded_contracts": json.encode(
                 {
                     "0x4e59b44847b379578588920cA78FbF26c0B4956C": {

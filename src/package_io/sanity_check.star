@@ -29,6 +29,8 @@ OP_CONTRACT_DEPLOYER_PARAMS = [
 
 ADDITIONAL_SERVICES_PARAMS = [
     "blockscout",
+    # TODO: we might add our "bridge_ui" here. but need to think about whether that will lead to
+    # more maintenance in the future
 ]
 
 ROOT_PARAMS = [

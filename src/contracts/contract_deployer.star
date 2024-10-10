@@ -40,6 +40,7 @@ def deploy_contracts(
         ),
     )
 
+    # MARK: this only changes the artifacts_url in intent.toml
     op_deployer_configure = plan.run_sh(
         name="op-deployer-configure",
         description="Configure L2 contract deployments",

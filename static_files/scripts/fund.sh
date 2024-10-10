@@ -29,6 +29,9 @@ for chain_id in "${chain_ids[@]}"; do
   sequencer_priv=$(cast wallet private-key "$mnemonic" "m/44'/60'/2'/$chain_id/3")
   sequencer_addr=$(cast wallet address "$sequencer_priv")
   write_keyfile "$sequencer_addr" "$sequencer_priv" "sequencer-$chain_id"
+  # TODO: need to figure out how to disable fault proof - b/c:
+  # 1. our finality gadget doesn't support it yet
+  # 2. some of our clients haven't enabled it yet
   challenger_priv=$(cast wallet private-key "$mnemonic" "m/44'/60'/2'/$chain_id/4")
   challenger_addr=$(cast wallet address "$challenger_priv")
   write_keyfile "$challenger_addr" "$challenger_priv" "challenger-$chain_id"
