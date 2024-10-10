@@ -56,9 +56,12 @@ def deploy_contracts(
         },
         run=" && ".join(
             [
+                # MARK: we can use dasel to update the useFaultProofs in intent.toml
                 "cat /network-data/intent.toml | dasel put -r toml -t string -v '{0}' 'contractArtifactsURL' > /network-data/.intent.toml".format(
                     optimism_args.op_contract_deployer_params.artifacts_url
                 ),
+                # Update useFaultProofs to false
+                "cat /network-data/.intent.toml | dasel put -r toml -t bool -v false 'useFaultProofs' > /network-data/intent.toml",
                 "mv /network-data/.intent.toml /network-data/intent.toml",
             ]
         ),
