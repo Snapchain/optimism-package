@@ -145,3 +145,9 @@ def get_l1_config(all_l1_participants, l1_network_params, l1_network_id):
     env_vars["L1_CHAIN_ID"] = str(l1_network_id)
     env_vars["L1_BLOCK_TIME"] = str(l1_network_params.seconds_per_slot)
     return env_vars
+
+# TODO: to quickly test the change, we can:
+# - comment out those L1 code above
+# - in get_l1_config(), hardcode the values of our own L1 (34.31.70.54)
+# - `kurtosis run .` to test the change
+# - verify the L2 is deployed in our GCP L1
