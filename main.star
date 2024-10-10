@@ -25,7 +25,7 @@ def run(plan, args):
     # need to do a raw get here in case only optimism_package is provided.
     # .get will return None if the key is in the config with a None value.
     optimism_args = args.get("optimism_package") or input_parser.default_optimism_args()
-    optimism_args_with_right_defaults = input_parser.input_parser(plan, optimism_args
+    optimism_args_with_right_defaults = input_parser.input_parser(plan, optimism_args)
 
     # Deploy the L1
     # TODO: this step should be optional if we're using an existing L1 just by providing the RPC URL
